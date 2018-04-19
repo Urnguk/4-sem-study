@@ -129,3 +129,52 @@ double count_potential(Molecule *system, int N, double length, double temperatur
 	}
 	return potential;
 }
+
+int main() {
+
+	/* вспомогательные константы, переменные и создание массивов */
+
+	const int n = 10;
+	int N = pow(n, 3);
+	const int time_period = 100000;
+	double const_Bolcman = 1.4 * pow(10, -23);
+	double epsilon = 171.12 * pow(10, -29);
+
+	int length = 8;
+	double Temperature = 250;
+
+	double axis_v = pow((const_Bolcman * Temperature / epsilon), 0.5);
+	double time_step = pow(10, -6);
+	double full_v;
+
+	double d_2_r = 0;
+
+	Molecule system[n*n*n];
+
+
+	double Kinetic_energy;
+	double Potential_energy;
+	double Full_energy;
+
+	ofstream fout_1;
+	fout_1.open("Energy_data.txt");
+	
+	
+	/* ввод данных молекул*/
+
+	double length_step = length / n;
+	int mol_number = 0;
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			for (int k = 0; k < n; k++) {
+				system[mol_number].input_Mol(length_step * i, length_step * j, length_step * k, axis_v, time_step);
+				mol_number++;
+			}
+		}
+	}
+	
+	fout_1.close();
+	
+	return 0;
+}
