@@ -174,6 +174,33 @@ int main() {
 		}
 	}
 	
+	/* запуск основного цикла */
+
+	for (int current_time = 0; current_time < time_period; current_time++) {
+
+		if (!(current_time % 1000)) {
+			cout << current_time << endl;
+		}
+
+		for (mol_number = 0; mol_number < N; mol_number++) {
+			system[mol_number].move();
+		}
+
+		Potential_energy = count_potential(system, N, length, Temperature, current_time);
+		Kinetic_energy = 0;
+
+		for (mol_number = 0; mol_number < N; mol_number++) {
+			system[mol_number].respeed();
+			full_v = pow(pow(system[mol_number].Vx, 2) + pow(system[mol_number].Vy, 2) + pow(system[mol_number].Vz, 2), 0.5);
+			Kinetic_energy += pow(full_v, 2) / 2;
+		}
+
+		Temperature = (Kinetic_energy * 2 * epsilon) / (3 * const_Bolcman * N);
+
+		Full_energy = Potential_energy + Kinetic_energy;
+		fout_1 << current_time << " " << Kinetic_energy << " " << Potential_energy << " " << Full_energy << endl;
+	}
+	
 	fout_1.close();
 	
 	return 0;
