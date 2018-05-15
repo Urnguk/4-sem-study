@@ -124,7 +124,16 @@ double count_potential(Molecule *system, int N, double length, double temperatur
 			system[j].Ax -= F * d_x;
 			system[j].Ay -= F * d_y;
 			system[j].Az -= F * d_z;
-
+			
+			/* термостат Беренсена*/
+			if (time < 3000) {
+				system[i].Ax += (system[i].Vx / pow(10, -2)) * ((T0 / temperature) - 1);
+				system[i].Ay += (system[i].Vy / pow(10, -2)) * ((T0 / temperature) - 1);
+				system[i].Az += (system[i].Vz / pow(10, -2)) * ((T0 / temperature) - 1);
+				system[j].Ax += (system[j].Vx / pow(10, -2)) * ((T0 / temperature) - 1);
+				system[j].Ay += (system[j].Vy / pow(10, -2)) * ((T0 / temperature) - 1);
+				system[j].Az += (system[j].Vz / pow(10, -2)) * ((T0 / temperature) - 1);
+			}
 		}
 	}
 	return potential;
