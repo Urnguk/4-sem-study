@@ -11,5 +11,5 @@
 5) https://en.wikipedia.org/wiki/Periodic_boundary_conditions
 
 Инструкция по запуску:
-  Открыть файл Argon.cpp в MS Visual Studio 2015 и скомпилировать в Release x86.
+  Открыть файл Argon.cpp из папки Argon_model в MS Visual Studio 2015 и скомпилировать в Release x86.
 
