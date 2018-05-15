@@ -157,7 +157,12 @@ int main() {
 	double Full_energy;
 
 	ofstream fout_1;
+	ofstream fout_2;
+	ofstream fout_3;
+	
 	fout_1.open("Energy_data.txt");
+	fout_2.open("makswell_axis_data.txt");
+	fout_3.open("Makswell_full_data.txt");
 	
 	
 	/* ввод данных молекул*/
@@ -199,9 +204,20 @@ int main() {
 
 		Full_energy = Potential_energy + Kinetic_energy;
 		fout_1 << current_time << " " << Kinetic_energy << " " << Potential_energy << " " << Full_energy << endl;
+		//            Распределение Максвелла
+
+
+		if (current_time > 10000) {
+			for (int i = 0; i < N; i++) {
+				fout_2 << system[i].Vx << endl << system[i].Vy << endl << system[i].Vz << endl;
+				fout_3 << pow(system[i].Vx, 2) + pow(system[i].Vy, 2) + pow(system[i].Vz, 2) << endl;
+			}
+		}
 	}
 	
 	fout_1.close();
+	fout_2.close();
+	fout_3.close();
 	
 	return 0;
 }
