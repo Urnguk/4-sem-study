@@ -136,7 +136,7 @@ int main() {
 
 	const int n = 10;
 	int N = pow(n, 3);
-	const int time_period = 100000;
+	const int time_period = 1000000;
 	double const_Bolcman = 1.4 * pow(10, -23);
 	double epsilon = 171.12 * pow(10, -29);
 
@@ -159,10 +159,21 @@ int main() {
 	ofstream fout_1;
 	ofstream fout_2;
 	ofstream fout_3;
+	ofstream fout_4;
+	ofstream fout_5;
+	ofstream fout_6;
+	ofstream fout_7;
+	ofstream fout_8;
 	
 	fout_1.open("Energy_data.txt");
 	fout_2.open("makswell_axis_data.txt");
 	fout_3.open("Makswell_full_data.txt");
+	fout_4.open("Einstein_data_1.txt");
+	fout_5.open("Einstein_data_2.txt");
+	fout_6.open("Einstein_data_3.txt");
+	fout_7.open("Einstein_data_4.txt");
+	fout_8.open("Einstein_data_5.txt");
+
 	
 	
 	/* ввод данных молекул*/
@@ -204,10 +215,95 @@ int main() {
 
 		Full_energy = Potential_energy + Kinetic_energy;
 		fout_1 << current_time << " " << Kinetic_energy << " " << Potential_energy << " " << Full_energy << endl;
+		
+		//       Эйнштейн - Смолуховский
+		
+		if (current_time == 100000 || current_time == 300000 || current_time == 500000 || current_time == 700000 || current_time == 900000) {
+			for (int i = 0; i < N; i++) {
+				system[i].x_0 = system[i].x;
+				system[i].y_0 = system[i].y;
+				system[i].z_0 = system[i].z;
+			}
+		}
+
+
+		if (current_time >= 100000 && current_time < 200000) {
+			d_2_r = 0;
+
+			for (int i = 0; i < N; i++) {
+				d_2_r += pow(system[i].x - system[i].x_0, 2) + pow(system[i].y - system[i].y_0, 2) + pow(system[i].z - system[i].z_0, 2);
+
+
+			}
+
+			fout_4 << d_2_r << endl;
+
+		}
+
+		else {
+			if (current_time >= 300000 && current_time < 400000) {
+				d_2_r = 0;
+
+				for (int i = 0; i < N; i++) {
+					d_2_r += pow(system[i].x - system[i].x_0, 2) + pow(system[i].y - system[i].y_0, 2) + pow(system[i].z - system[i].z_0, 2);
+				}
+
+				fout_5 << d_2_r << endl;
+
+			}
+
+			else {
+
+				if (current_time >= 500000 && current_time < 600000) {
+					d_2_r = 0;
+
+					for (int i = 0; i < N; i++) {
+						d_2_r += pow(system[i].x - system[i].x_0, 2) + pow(system[i].y - system[i].y_0, 2) + pow(system[i].z - system[i].z_0, 2);
+
+
+					}
+
+					fout_6 << d_2_r << endl;
+
+				}
+
+				else {
+					if (current_time >= 700000 && current_time < 800000) {
+						d_2_r = 0;
+
+						for (int i = 0; i < N; i++) {
+							d_2_r += pow(system[i].x - system[i].x_0, 2) + pow(system[i].y - system[i].y_0, 2) + pow(system[i].z - system[i].z_0, 2);
+
+
+						}
+
+						fout_7 << d_2_r << endl;
+
+					}
+
+					else {
+						if (current_time >= 900000) {
+							d_2_r = 0;
+
+							for (int i = 0; i < N; i++) {
+								d_2_r += pow(system[i].x - system[i].x_0, 2) + pow(system[i].y - system[i].y_0, 2) + pow(system[i].z - system[i].z_0, 2);
+
+
+							}
+
+							fout_8 << d_2_r << endl;
+
+						}
+					}
+				}
+			}
+		}
+
+		
 		//            Распределение Максвелла
 
 
-		if (current_time > 10000) {
+		if (current_time > 700000) {
 			for (int i = 0; i < N; i++) {
 				fout_2 << system[i].Vx << endl << system[i].Vy << endl << system[i].Vz << endl;
 				fout_3 << pow(system[i].Vx, 2) + pow(system[i].Vy, 2) + pow(system[i].Vz, 2) << endl;
@@ -218,6 +314,11 @@ int main() {
 	fout_1.close();
 	fout_2.close();
 	fout_3.close();
+	fout_4.close();
+	fout_5.close();
+	fout_6.close();
+	fout_7.close();
+	fout_8.close();
 	
 	return 0;
 }
